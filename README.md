@@ -24,4 +24,3 @@ To set up the PostgreSQL database:
 2. Run the following command to start the database:
    ```bash
    docker-compose up -d
-3. 
