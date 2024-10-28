@@ -8,6 +8,7 @@ import egov.digit.repository.ServiceDefinitionRequestRepository;
 import egov.digit.utils.validators.ServiceDefinitionRequestValidator;
 import org.egov.common.contract.request.RequestInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -28,7 +29,8 @@ public class ServiceDefinitionRequestService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private static final String API_URL = "https://random-data-api.com/api/v2/users?size=1"; // Replace with your actual API URL
+    @Value("${api.url}")
+    private String apiUrl;
 
 
     public ServiceDefinition createServiceDefinition(ServiceDefinitionRequest serviceDefinitionRequest)  {
@@ -42,7 +44,7 @@ public class ServiceDefinitionRequestService {
 
         // Fetch additional details from the User API
         try {
-            User user = restTemplate.getForObject(API_URL, User.class);
+            User user = restTemplate.getForObject(apiUrl, User.class);
             ObjectMapper objectMapper = new ObjectMapper();
 
             if (user != null) {
